@@ -1,4 +1,5 @@
 <?php
+require_once "modules/php/constants.inc.php";
 /**
  *------
  * BGA framework: Gregory Isabelli & Emmanuel Colin & BoardGameArena
@@ -49,55 +50,45 @@
 
 //    !! It is not a good idea to modify this file when a game is running !!
 
-
 $machinestates = [
-
-    // The initial state. Please do not modify.
-
-    1 => array(
+    ST_BGA_GAME_SETUP => [
         "name" => "gameSetup",
-        "description" => "",
+        "description" => clienttranslate("Game setup"),
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => ["" => 2]
-    ),
-
-    // Note: ID=2 => your first state
-
-    2 => [
-        "name" => "playerTurn",
-        "description" => clienttranslate('${actplayer} must play a card or pass'),
-        "descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
-        "type" => "activeplayer",
-        "args" => "argPlayerTurn",
-        "possibleactions" => [
-            // these actions are called from the front with bgaPerformAction, and matched to the function on the game.php file
-            "actPlayCard", 
-            "actPass",
-        ],
-        "transitions" => ["playCard" => 3, "pass" => 3]
+        "transitions" => ["" => ST_PLAYER_PLAY_DISC],
     ],
 
-    3 => [
+    ST_PLAYER_PLAY_DISC => [
+        "name" => "playerTurn",
+        "description" => clienttranslate('${actplayer} must play a disc'),
+        "descriptionmyturn" => clienttranslate('${you} must play a disc'),
+        "type" => "activeplayer",
+        "args" => "argPlayerTurn",
+        "possibleactions" => ["actPlayDisc"],
+        "transitions" => [
+            "playDisc" => ST_NEXT_PLAYER,
+            "zombiePass" => ST_NEXT_PLAYER,
+        ],
+    ],
+
+    ST_NEXT_PLAYER => [
         "name" => "nextPlayer",
-        "description" => '',
         "type" => "game",
         "action" => "stNextPlayer",
         "updateGameProgression" => true,
-        "transitions" => ["endGame" => 99, "nextPlayer" => 2]
+        "transitions" => [
+            "nextTurn" => ST_PLAYER_PLAY_DISC,
+            "cantPlay" => ST_NEXT_PLAYER,
+            "endGame" => ST_END_GAME,
+        ],
     ],
 
-    // Final state.
-    // Please do not modify (and do not overload action/args methods).
-    99 => [
+    ST_END_GAME => [
         "name" => "gameEnd",
         "description" => clienttranslate("End of game"),
         "type" => "manager",
         "action" => "stGameEnd",
-        "args" => "argGameEnd"
+        "args" => "argGameEnd",
     ],
-
 ];
-
-
-

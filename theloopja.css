@@ -63,86 +63,70 @@
         background-repeat: none;
     }
 */
+:root {
+  --cube-size: 25px;
+}
 
-#board {
-  width: 500px;
-  height: 500px;
-  background-image: url("img/temp/board2.png");
-  background-size: contain;
-  position: relative;
+#eras {
+  min-height: 100px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
 
   .era {
-    height: 50%;
-    width: 50%;
-    position: absolute;
-    left: 25%;
-    opacity: 0;
-
-    svg {
-      position: absolute;
-      opacity: 0.5;
-    }
+    min-width: 10%;
   }
 
-  .era#blue {
-    polygon {
-      fill: blue;
-    }
+  .era_1 {
+    background-color: lightblue;
   }
 
-  .era#yellow {
-    transform: translate(25%) rotate(51deg);
-    opacity: 0.5;
-
-    polygon {
-      fill: yellow;
-    }
+  .era_2 {
+    background-color: yellow;
   }
 
-  .era#pink {
-    transform: translate(25%) rotate(calc(2 * 51deg));
-
-    polygon {
-      fill: pink;
-    }
+  .era_3 {
+    background-color: pink;
   }
 
-  .era#green {
-    transform: translate(25%) rotate(calc(3 * 51deg));
-
-    polygon {
-      fill: green;
-    }
+  .era_4 {
+    background-color: green;
   }
 
-  .era#orange {
-    transform: translate(25%) rotate(calc(4 * 51deg));
-
-    polygon {
-      fill: orange;
-    }
+  .era_5 {
+    background-color: orange;
   }
 
-  .era#purple {
-    transform: translate(25%) rotate(calc(5 * 51deg));
-
-    polygon {
-      fill: purple;
-    }
+  .era_6 {
+    background-color: purple;
   }
 
-  .era#red {
-    transform: translate(25%) rotate(calc(6 * 51deg));
+  .era_7 {
+    background-color: red;
+  }
 
-    polygon {
-      fill: red;
-    }
+  .cubes {
+    text-align: center;
+    border: 1px solid white;
+    margin: 10px;
+    width: var(--cube-size);
+    height: var(--cube-size);
+  }
+
+  .cubes.red {
+    background-color: red;
+  }
+
+  .cubes.green {
+    background-color: green;
   }
 }
 
-#hq-board {
-  width: 500px;
-  height: 500px;
-  background-image: url("img/temp/hq-board.png");
-  background-size: contain;
+.playertablecard {
+  display: inline-block;
+  position: relative;
+  margin-top: 5px;
+  width: 72px;
+  height: 96px;
+  background-color: yellow;
 }
